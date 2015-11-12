@@ -4,17 +4,17 @@ describe "Static pages" do
   describe "Home page", type: :feature do
     
     it "has the content 'Sample App'" do
-      visit '/static_pages/home'
+      visit root_path
       expect(page).to have_content('Sample App')
     end
 
     it "has the h1 'Sample App'" do
-      visit '/static_pages/home'
+      visit root_path
       expect(page).to have_selector('h1', text: 'Sample App')
     end
 
     it "has the title 'Home'"do
-      visit '/static_pages/home'
+      visit root_path
       expect(page).to have_title("Home | Ruby on Rails Tutorial Sample App")
     end
   end
