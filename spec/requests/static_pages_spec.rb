@@ -15,7 +15,7 @@ describe "Static pages" do
 
     it "has the title 'Home'"do
       visit '/static_pages/home'
-      expect(page).to have_selector('title', :text => "Ruby on Rails Tutorial Sample App | Home")
+      expect(page).to have_title("Home | Ruby on Rails Tutorial Sample App")
     end
   end
 
@@ -30,9 +30,9 @@ describe "Static pages" do
       expect(page).to have_selector('h1', text: 'Help')
     end
 
-    it "has the title 'Home'"do
+    it "has the title 'Help'"do
       visit '/static_pages/help'
-      expect(page).to have_selector('title', :text => "Ruby on Rails Tutorial Sample App | Help")
+      expect(page).to have_title("Help | Ruby on Rails Tutorial Sample App")
     end
   end
 
@@ -48,8 +48,8 @@ describe "Static pages" do
     end
 
     it "has the title 'About'"do
-      visit '/static_pages/habout'
-      expect(page).to have_selector('title', :text => "Ruby on Rails Tutorial Sample App | About")
+      visit '/static_pages/about'
+      expect(page).to have_title("About | Ruby on Rails Tutorial Sample App")
     end
   end
 end
