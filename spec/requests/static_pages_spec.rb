@@ -53,4 +53,21 @@ describe "Static pages" do
       expect(page).to have_title("About #{base_title}")
     end
   end
+
+  describe "Contact page", type: :feature do
+    it "has the content Contact" do
+      visit '/static_pages/contact'
+      expect(page).to have_content('Contact')
+    end
+  end
+
+  it "has the h1 'Contact'" do
+    visit '/static_pages/contact'
+    expect(page).to have_selector('h1', text: 'Contact')
+  end
+
+  it "has the title 'Contact'" do
+    visit '/static_pages/contact'
+    expect(page).to have_title("Contact #{base_title}")
+  end
 end
