@@ -52,4 +52,21 @@ describe "Static pages" do
       expect(page).to have_title("About | Ruby on Rails Tutorial Sample App")
     end
   end
+
+  describe "Contact page", type: :feature do
+    it "has the content 'Contact'" do
+      visit '/static_pages/contact'
+      expect(page).to have_content('Contact')
+    end
+
+    it "has the h1 'Contact'" do
+      visit '/static_pages/contact'
+      expect(page).to have_selector('h1', text: 'Contact')
+    end
+
+    it "has the title 'Contact'" do
+      visit '/static_pages/contact'
+      expect(page).to have_title("Contact | Ruby on Rails Tutorial Sample App")
+    end
+  end
 end
