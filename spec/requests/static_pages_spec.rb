@@ -15,7 +15,7 @@ describe "Static pages" do
     end
 
     it "has the title 'Home'"do
-      expect(page).to have_title("Home | Ruby on Rails Tutorial Sample App")
+      expect(page).to have_title(full_title("Home"))
     end
   end
 
@@ -38,7 +38,7 @@ describe "Static pages" do
 
     describe "About page", type: :feature do
       before :each do
-        visit 'about_path'
+        visit about_path
       end
       it "has the content 'About'" do
         expect(page).to have_content('About')
