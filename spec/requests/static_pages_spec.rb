@@ -15,7 +15,7 @@ describe "Static pages" do
     end
 
     it "has the title 'Home'"do
-      expect(page).to have_title(full_title("Home"))
+      expect(page).to have_title("Home | Ruby on Rails Tutorial Sample App")
     end
   end
 
