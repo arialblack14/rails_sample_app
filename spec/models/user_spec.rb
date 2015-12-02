@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "when email is too long" do
-    before { @user.email = "a" + 244 + "@example.com" }
+    before { @user.email = "a" * 244 + "@example.com" }
     it {is_expected.to_not be_valid }
   end
 
@@ -49,6 +49,16 @@ RSpec.describe User, type: :model do
         expect(@user).to be_valid
       end
     end
+  end
+
+  describe "when email address is already taken" do
+    before do
+      user_with_same_email = @user.dup
+      user_with_same_email.email = @user.email.upcase
+      user_with_same_email.save
+    end
+
+    it { is_expected.to_not be_valid }
   end
 end
 
