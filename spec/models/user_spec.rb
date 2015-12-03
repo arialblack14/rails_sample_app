@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before { @user = User.new(name: "Example User", email: "user@example.com") }
+  before { @user = User.new(name: "Example User", email: "user@example.com",
+                            password: "foobar", password_confirmation: "foobar") }
   
   subject { @user }
 
@@ -10,6 +11,9 @@ RSpec.describe User, type: :model do
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:email) }
   it { is_expected.to respond_to(:password_digest) }
+  it { is_expected.to respond_to(:password) }
+  it { is_expected.to respond_to(:password_confirmation) }
+  it { is_expected.to respond_to(:authenticate) }
 
   it { is_expected.to be_valid }
 
@@ -61,6 +65,42 @@ RSpec.describe User, type: :model do
       user_with_same_email.save
     end
 
+    it { is_expected.to_not be_valid }
+  end
+
+  describe "when password is not present" do
+    before  { @user.password = @user.password_confirmation = " " }
+    it { is_expected.to_not be_valid }
+  end
+
+  describe "when password doesn't match confirmation" do
+    before { @user.password_confirmation = "mismatch" }
+    it { is_expected.to_not be_valid }
+  end
+
+  describe "when password confirmation is nil" do
+    before { @user.password_confirmation = nil }
+    it { is_expected.to_not be_valid }
+  end
+
+  describe "return value of authenticate method" do
+    before { @user.save }
+    let(:found_user) { User.find_by_email(@user.email) }
+  
+    describe "with valid password" do
+      it { is_expected.to eq(found_user.authenticate(@user.password)) }
+    end
+
+    describe "with invalid password" do
+      let(:user_for_invalid_password) { found_user.authenticate("invalid") }
+
+      it { is_expected.to_not eq(user_for_invalid_password) }
+      specify { expect(user_for_invalid_password).to be false }
+    end
+  end
+
+  describe "with a password that's too short" do
+    before { @user.password = @user.password_confirmation = "a" * 5 }
     it { is_expected.to_not be_valid }
   end
 end
